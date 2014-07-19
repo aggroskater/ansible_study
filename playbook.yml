@@ -1,0 +1,11 @@
+---
+- name: Deployment for Preston's LAMP stack
+  hosts: preston-lamp-stack
+  roles:
+  - common
+  - mysql
+  - apache
+  - php-fpm
+  - wordpress
+  - mediawiki
+  - exim4
