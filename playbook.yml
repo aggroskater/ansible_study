@@ -1,6 +1,6 @@
 ---
 - name: Deployment for Preston's LAMP stack
-  hosts: preston-lamp-stack
+  hosts: vagrantbox.com
   roles:
   - common
   - mysql
@@ -9,3 +9,7 @@
   - wordpress
   - mediawiki
   - exim4
+  - memcached
+  - varnish
+  - spamassassin
+  - dovecot
