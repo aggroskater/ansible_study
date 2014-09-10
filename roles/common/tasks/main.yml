@@ -11,3 +11,6 @@
 - name: Set up iptables rules
   copy: src=iptables-save dest=/etc/sysconfig/iptables
   notify: restart iptables
+
+- name: Install memcached
+  yum: name=memcached,libmemcached state=present
