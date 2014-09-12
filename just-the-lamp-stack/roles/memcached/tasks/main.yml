@@ -1,0 +1,7 @@
+---
+ - name: Install memcached
+   yum: name=memcached,libmemcached state=present
+
+ - name: Configure memcached
+   copy: src=memcached.conf dest=/etc/sysconfig/memcached
+   notify: restart memcached

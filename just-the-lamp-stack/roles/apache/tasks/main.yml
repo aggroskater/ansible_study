@@ -1,0 +1,7 @@
+---
+- name: Install apache
+  yum: name=httpd state=present
+
+# Install this module with a static rpm file
+- name: Install necessary apache modules
+  rpm: name=mod_fastcgi-2.4.6-2.el6.rf.x86_64.rpm state=present

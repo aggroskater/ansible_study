@@ -1,0 +1,11 @@
+---
+- name: Deployment for Preston's LAMP stack
+  hosts: vagrantbox.com,vagrantbox-db.com
+  roles:
+  - common
+  - mysql
+  - php-fpm
+  - php-modules
+  - memcached
+  - apache
+  - wordpress
