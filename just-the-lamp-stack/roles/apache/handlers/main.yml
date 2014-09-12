@@ -1,3 +1,7 @@
 ---
- - name: restart iptables
-   service: name=iptables state=restarted
+ - name: restart apache
+   service: name=httpd state=restarted
+ - name: mod_fastcgi config
+   copy: src=fastcgi.conf dest=/etc/httpd/conf.d/fastcgi.conf
+ - name: mod_ssl config
+   copy: src=ssl.conf dest=/etc/httpd/conf.d/ssl.conf
