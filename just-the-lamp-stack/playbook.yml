@@ -3,6 +3,7 @@
   hosts: vagrantbox.com,vagrantbox-db.com
   roles:
   - common
+  - named
   - mysql
   - php-fpm
   - php-modules
