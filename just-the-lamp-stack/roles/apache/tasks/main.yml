@@ -1,10 +1,20 @@
 ---
 - name: Install apache
   yum: name=httpd state=present
+  notify: apache initial config
+
+# I'm not sure if it would be good practice to utilize notify
+# directives for installing config files. ANY time there is a
+# change in state, then the notifier gets run. So... if I
+# UNINSTALL some package, then the notifier gets run and...
+# puts a config file on the system anyway.
+#
+# But, on the other hand, why would we be uninstalling these
+# services?
 
 # Install this module with a static rpm file
 - name: Install mod_fastcgi from rpm
-  rpm: name=mod_fastcgi-2.4.6-2.el6.rf.x86_64.rpm state=present
+  yum: name=mod_fastcgi-2.4.6-2.el6.rf.x86_64.rpm state=present
   notify: mod_fastcgi config
 
 - name: Install mod_ssl
@@ -12,4 +22,4 @@
   notify: mod_ssl config
 
 - name: restart the server now that configs are in place
-  notify: restart apache
+  service: name=httpd state=restarted

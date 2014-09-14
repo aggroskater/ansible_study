@@ -1,12 +1,17 @@
 ---
-- name: Deployment for Preston's LAMP stack
-  hosts: vagrantbox.com,vagrantbox-db.com
+# lamp stack
+- name: Linux, Apache, PHP portion (maybe varnish too)
+  hosts: vagrantbox.com
   roles:
   - common
   - named
-  - mysql
-  - php-fpm
-  - php-modules
-  - memcached
+#  - php-fpm
+#  - php-modules
+#  - memcached
   - apache
-  - wordpress
+#  - wordpress
+
+- name: DB portion
+  hosts: vagrantbox-db.com
+  roles:
+  - mysql
