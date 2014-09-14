@@ -1,0 +1,8 @@
+---
+ - name: Install php and all necessary extensions
+   yum: name=php-cli,php-common,php-fpm,php-mysql,php-pdo,php-pear state=present
+
+ - name: Add configuration files
+   copy: src=php-fpm.conf /etc/php-fpm.conf
+   copy: src=aspen.conf /etc/php-fpm.d/aspen.conf
+   notify: restart php-fpm

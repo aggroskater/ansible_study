@@ -5,7 +5,7 @@
   roles:
   - common
   - named
-#  - php-fpm
+  - php-fpm
 #  - php-modules
 #  - memcached
   - apache
