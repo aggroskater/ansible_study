@@ -1,0 +1,25 @@
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links = 0
+slow-query-log = 1
+slow-query-log-file = /var/log/mysql/mysql-slow.log
+long_query_time = 2
+log-queries-not-using-indexes
+
+# master-slave stuff
+# This box is master.
+#bind-address = {{ ipv4_address_private  }}
+#server-id = 1master
+
+# binary logging
+#log_bin = /var/log/mysql/mysql-bin.log
+
+#binlog_do_db = wordpress
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+

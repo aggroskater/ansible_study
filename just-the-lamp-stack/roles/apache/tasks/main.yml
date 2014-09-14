@@ -10,7 +10,7 @@
 # puts a config file on the system anyway.
 #
 # But, on the other hand, why would we be uninstalling these
-# services?
+# services? And wouldn't that be in a separate playbook?
 
 # Install this module with a static rpm file
 - name: Install mod_fastcgi from rpm

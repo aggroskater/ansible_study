@@ -1,13 +1,9 @@
 ---
-- name: Install mysql blah blah blah
-  yum: name=libselinux-python state=present
+- name: Install mysql
+  yum: name=mysql,mysql-server,mysql-tuner state=present
 
-- name: Copy the EPEL repository definition
-  copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
-
-- name: Create the GPG key for EPEL
-  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
+#later on: set up replication?
 
 - name: Set up iptables rules
-  copy: src=iptables-save dest=/etc/sysconfig/iptables
-  notify: restart iptables
+  template: src=my.cnf.j2 dest=/etc/my.cnf
+  notify: restart mysql
