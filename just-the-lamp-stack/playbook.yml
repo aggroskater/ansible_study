@@ -6,12 +6,13 @@
   - common
   - named
   - php-fpm
-#  - php-modules
-#  - memcached
   - apache
 #  - wordpress
 
 - name: DB portion
   hosts: vagrantbox-db.com
   roles:
-  - mysql
+  - mysql # master
+#  - replication
+#  - memcached
+#  - redis

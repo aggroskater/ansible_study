@@ -15,7 +15,7 @@ LoadModule ssl_module modules/mod_ssl.so
 # When we also provide SSL we have to listen to the 
 # the HTTPS port in addition.
 #
-Listen {{ ipv4_address }}:443
+Listen *:443
 
 ##
 ##  SSL Global Context
@@ -111,8 +111,14 @@ LogLevel warn
 ##
 
 #NameVirtualHost *:443
+NameVirtualHost {{ ipv4_address }}:443
+
+# Technically, our cert has SANs for mail.aggroskater.com AND aggroskater.com
+# We can take advantage of this to redirect https://aggroskater.com/ to
+# plain ol' http://aggroskater.com/
 
 <VirtualHost {{ ipv4_address }}:443>
+#<VirtualHost *:443>
 
 ServerName mail.aggroskater.com
 DocumentRoot /var/www/html/mail
@@ -129,6 +135,26 @@ AllowOverride All
     Order allow,deny
     Allow from all
 </Directory>
+
+</VirtualHost>
+
+<VirtualHost {{ ipv4_address }}:443>
+#<VirtualHost *:443>
+
+ServerName aggroskater.com
+DocumentRoot /var/www/html/generic
+
+SSLEngine on
+SSLCertificateFile /etc/httpd/ssl/aggroskater.ssl.crt
+SSLCertificateKeyFile /etc/httpd/ssl/aggroskater.ssl.key
+SSLCertificateChainFile /etc/httpd/ssl/aggroskater.ssl.chain
+SSLCACertificateFile /etc/httpd/ssl/aggroskater.ssl.ca
+
+# Redirecting from HTTPS to HTTP requires mod_rewrite finangling -__-
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{HTTPS} on
+RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 </VirtualHost>
 
