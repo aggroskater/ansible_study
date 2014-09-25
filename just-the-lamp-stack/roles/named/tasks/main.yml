@@ -1,9 +1,12 @@
 ---
  - name: Install named
    yum: name=bind,bind-utils,bind-chroot state=present
-   notify: 
-   - named.conf config
-   - aggroskater.com config
+#   notify: 
+#   - named.conf config
+#   - aggroskater.com config
+ - name: Get configs set up
+   template: src=aggroskater.com.db.j2 dest=/var/named/chroot/var/named/aggroskater.com.db
+   template: src=named.conf.j2 dest=/var/named/chroot/etc/named.conf
  - name: Adjust perms in chroot
    file: path=/var/named/chroot/var/named owner=named group=named recurse=yes
  - name: restart bind
