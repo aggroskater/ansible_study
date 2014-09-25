@@ -1,0 +1,5 @@
+---
+ - name: named.conf config
+   template: src=named.conf.j2 dest=/var/named/chroot/etc/named.conf
+ - name: aggroskater.com config
+   template: src=aggroskater.com.db.j2 dest=/var/named/chroot/var/named/aggroskater.com.db
