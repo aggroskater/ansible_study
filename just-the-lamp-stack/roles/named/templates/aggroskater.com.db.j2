@@ -1,0 +1,31 @@
+;aggroskater.com zonefile
+$TTL 60
+aggroskater.com.	86400	IN	SOA	ns1.aggroskater.com.	dnsadmin.aggroskater.com.	(
+
+201409120220 ; serial
+86400 ; refresh
+7200 ; retry
+360000 ; expire
+86400 )
+
+;nameservers and primary domain A recor
+aggroskater.com.	86400	IN	NS	ns1.aggroskater.com.
+aggroskater.com.	86400	IN	NS	ns2.aggroskater.com.
+
+ns1	600	IN	A	{{ ipv4_address }}
+ns2	600	IN	A	{{ ipv4_address }}
+
+aggroskater.com.	600	IN	A	{{ ipv4_address }}
+localhost	600	IN	A	127.0.0.1
+
+;mail stuff
+aggroskater.com.	600	IN	MX	0	mx1.aggroskater.com.
+mx1	600	IN	A	{{ ipv4_address }}
+aggroskater.com.	600	IN	TXT	"v=spf1 a mx ip4:{{ ipv4_address }} -all"
+
+
+;justCNAMEthings
+mail	600	IN	CNAME	aggroskater.com.
+www	600	IN	CNAME	aggroskater.com.
+ftp	600	IN	CNAME	aggroskater.com.
+
