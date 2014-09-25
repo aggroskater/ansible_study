@@ -5,3 +5,5 @@
    notify: aggroskater.com config
  - name: Adjust perms in chroot
    file: path=/var/named/chroot/var/named owner=named group=named recurse=yes
+ - name: restart bind
+   service: name=named state=restarted
