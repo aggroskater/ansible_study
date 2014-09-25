@@ -1,10 +1,10 @@
 ---
 # lamp stack
 - name: Linux, Apache, PHP portion (maybe varnish too)
-  hosts: vagrantbox.com
+  hosts: mainserver
   roles:
   - common
-  - named
+  - { role: named, tags: [named] }
   - php-fpm
   - apache
 #  - wordpress
