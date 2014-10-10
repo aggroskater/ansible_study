@@ -4,11 +4,18 @@
 #   notify: 
 #   - named.conf config
 #   - aggroskater.com config
+ - name: Copy keyfiles and includes into chroot
+   shell: "cp /etc/named.dnssec.keys /var/named/chroot/etc/"
+   shell: "cp /etc/named.iscdlv.key /var/named/chroot/etc/"
+   shell: "cp /etc/named.rfc1912.zones /var/named/chroot/etc/"
+ - name: Copy default zones into chroot
+   shell: "cp /var/named/named.* /var/named/chroot/var/named/"
  - name: Get initial named.conf config set up
    template: src=named.conf.j2 dest=/var/named/chroot/etc/named.conf
  - name: Get aggroskater.com zone set up
    template: src=aggroskater.com.db.j2 dest=/var/named/chroot/var/named/aggroskater.com.db
  - name: Adjust perms in chroot
    file: path=/var/named/chroot/var/named owner=named group=named recurse=yes
- - name: restart bind
+   file: path=/var/named/chroot/etc group=named recurse=yes
+ - name: restart named
    service: name=named state=restarted
