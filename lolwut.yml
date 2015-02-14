@@ -1,0 +1,14 @@
+- name: Gather info about servers
+  hosts: raxserver
+  gather_facts: False
+  tasks:
+    - name: Get facts about servers
+      local_action:
+        module: rax_facts
+        credentials: ~/.rackspace_cloud_credentials
+        name: "{{ inventory_hostname }}"
+        region: DFW
+      register: result
+    - name: print dem facts
+      debug: var=result
+      
