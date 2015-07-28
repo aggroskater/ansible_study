@@ -11,4 +11,3 @@
       register: result
     - name: print dem facts
       debug: var=result
-      
