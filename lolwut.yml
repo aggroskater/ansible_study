@@ -2,7 +2,7 @@
   hosts: raxserver
   gather_facts: False
   tasks:
-    - name: Get facts about servers
+    - name: Get local/API facts about servers
       local_action:
         module: rax_facts
         credentials: ~/.rackspace_cloud_credentials
@@ -11,3 +11,6 @@
       register: result
     - name: print dem facts
       debug: var=result
+    - name: _meta[hostvars]
+      debug: var={{ hostvars["cent7_server"]["result"]["ansible_facts"]["rax_status"] }}
+#      debug: var={{ hostvars["cent7_server"]["result"]}}
