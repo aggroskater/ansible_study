@@ -1,6 +1,15 @@
+# lolwut.yml
+#
+# Call with something like:
+#
+# ansible-playbook -i rax.py lolwut.yml -u root \
+# --private-key=/home/preston/.ssh/id_rsa_rs
+
 - name: Gather info about servers
-  hosts: raxserver
-  gather_facts: False
+#  hosts: raxserver
+  hosts: all
+#  gather_facts: False
+  gather_facts: True
   tasks:
     - name: Get local/API facts about servers
       local_action:
@@ -9,8 +18,8 @@
         name: "{{ inventory_hostname }}"
         region: DFW
       register: result
-    - name: print dem facts
+    - name: print local facts
       debug: var=result
-    - name: _meta[hostvars]
-      debug: var={{ hostvars["cent7_server"]["result"]["ansible_facts"]["rax_status"] }}
-#      debug: var={{ hostvars["cent7_server"]["result"]}}
+    - name: print ALL facts ansible knows, including remotely obtained ones.
+#      debug: var={{ hostvars["cent7_server"]["result"]["ansible_facts"]["rax_status"] }}
+      debug: var={{ hostvars[inventory_hostname] }}
